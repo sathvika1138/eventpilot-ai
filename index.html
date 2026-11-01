@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventPilot AI — GenAI Event Planning Studio</title>
+  <meta name="description" content="Enterprise-grade GenAI event planning assistant for weddings, milestone birthdays, corporate galas, and community festivals. Complete with budgets, timelines, cue-to-cue run of show, and vendor checklists.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- Top Ambient Glow Elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>EventPilot <span class="badge-ai">AI 2.0</span></h1>
+          <p class="tagline">Enterprise Event Architecture & Production Dossier</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="header-actions">
+        <button id="btnNewEvent" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          New Event Plan
+        </button>
+        <button id="btnPrintDossier" class="btn btn-primary" title="Export Print-Ready PDF Report">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Export Dossier (PDF)
+        </button>
+        <button id="btnToggleCopilot" class="btn btn-gradient" title="Open AI Copilot Chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>AI Copilot</span>
+          <span class="pulse-indicator"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <main class="app-main">
+    <!-- Preset Banner / Quick-Switch -->
+    <section class="preset-selector-bar">
+      <div class="selector-inner">
+        <span class="selector-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Explore Curated Blueprints:
+        </span>
+        <div class="preset-pills" id="presetPillsContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Key Metrics Banner -->
+    <section class="metrics-grid" id="metricsSummary">
+      <!-- Injected by JS: Days countdown, budget balance, rsvp count, tasks completed -->
+    </section>
+
+    <!-- Navigation Tabs for Event Modules -->
+    <nav class="dossier-nav-tabs">
+      <button class="nav-tab active" data-tab="overview">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Overview & Vision
+      </button>
+      <button class="nav-tab" data-tab="budget">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        Budget & Value Engine
+      </button>
+      <button class="nav-tab" data-tab="vendors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+        Vendor Procurement
+      </button>
+      <button class="nav-tab" data-tab="timeline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Planning Roadmap
+      </button>
+      <button class="nav-tab" data-tab="runofshow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Day-Of Run of Show
+      </button>
+      <button class="nav-tab" data-tab="ideas">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+        Sensory & Experience
+      </button>
+      <button class="nav-tab" data-tab="guests">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Guest Matrix & Seating
+      </button>
+      <button class="nav-tab" data-tab="risks">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        Risk & Contingency
+      </button>
+    </nav>
+
+    <!-- Tab Contents Container -->
+    <div class="tab-content-area" id="tabContentArea">
+      <!-- 1. OVERVIEW TAB -->
+      <section id="tab-overview" class="tab-pane active">
+        <!-- Injected via renderOverview() -->
+      </section>
+
+      <!-- 2. BUDGET TAB -->
+      <section id="tab-budget" class="tab-pane">
+        <!-- Injected via renderBudget() -->
+      </section>
+
+      <!-- 3. VENDOR TAB -->
+      <section id="tab-vendors" class="tab-pane">
+        <!-- Injected via renderVendors() -->
+      </section>
+
+      <!-- 4. TIMELINE TAB -->
+      <section id="tab-timeline" class="tab-pane">
+        <!-- Injected via renderTimeline() -->
+      </section>
+
+      <!-- 5. RUN OF SHOW TAB -->
+      <section id="tab-runofshow" class="tab-pane">
+        <!-- Injected via renderRunOfShow() -->
+      </section>
+
+      <!-- 6. IDEAS TAB -->
+      <section id="tab-ideas" class="tab-pane">
+        <!-- Injected via renderIdeas() -->
+      </section>
+
+      <!-- 7. GUESTS TAB -->
+      <section id="tab-guests" class="tab-pane">
+        <!-- Injected via renderGuests() -->
+      </section>
+
+      <!-- 8. RISKS TAB -->
+      <section id="tab-risks" class="tab-pane">
+        <!-- Injected via renderRisks() -->
+      </section>
+    </div>
+  </main>
+
+  <!-- Interactive AI Copilot Chat Drawer -->
+  <aside class="copilot-drawer" id="copilotDrawer">
+    <div class="copilot-header">
+      <div class="copilot-brand">
+        <div class="copilot-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+        </div>
+        <div>
+          <h3>EventPilot Copilot</h3>
+          <span class="status-online"><span class="dot"></span> Online & Context-Aware</span>
+        </div>
+      </div>
+      <button id="btnCloseCopilot" class="btn-close" title="Close Copilot">&times;</button>
+    </div>
+
+    <!-- Suggested Quick Prompts -->
+    <div class="copilot-suggestions">
+      <button class="chip-prompt" data-prompt="Help me cut $2,500 from this budget without hurting guest perception.">💡 Cut $2,500 from budget</button>
+      <button class="chip-prompt" data-prompt="Draft a professional RFP email for our prospective caterer.">✉️ Draft Caterer RFP</button>
+      <button class="chip-prompt" data-prompt="What should our emergency weather contingency plan be?">🌧️ Rain fallback protocol</button>
+      <button class="chip-prompt" data-prompt="Give me 3 unique hero moment ideas for the grand entrance.">✨ Entrance Hero Moments</button>
+    </div>
+
+    <!-- Chat Message Log -->
+    <div class="copilot-messages" id="copilotMessages">
+      <div class="message ai-message">
+        <div class="msg-avatar">EP</div>
+        <div class="msg-bubble">
+          <p>Greetings! I am actively tracking your <strong>current event dossier</strong>. You can ask me to re-allocate funds, generate vendor RFP drafts, create custom drink recipes, or draft speeches on the fly. How can I assist?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Bar -->
+    <form class="copilot-input-form" id="copilotForm">
+      <input type="text" id="copilotInput" placeholder="Ask EventPilot anything about this event..." autocomplete="off">
+      <button type="submit" class="btn btn-primary btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </form>
+  </aside>
+
+  <!-- Modal: AI Event Intake Generator Wizard -->
+  <div class="modal-backdrop" id="wizardModal">
+    <div class="modal-box modal-wizard">
+      <div class="modal-header">
+        <div>
+          <h2>GenAI Event Architect Wizard</h2>
+          <p class="modal-subtitle">Configure your core vectors to synthesize a comprehensive Master Execution Dossier</p>
+        </div>
+        <button class="btn-close" id="btnCloseWizard">&times;</button>
+      </div>
+
+      <form id="wizardForm" class="wizard-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="inputEventType">1. Event Typology *</label>
+            <select id="inputEventType" required>
+              <option value="Wedding">Luxury / Destination Wedding</option>
+              <option value="Milestone Birthday" selected>Milestone Birthday Celebration</option>
+              <option value="Community Festival">Community Gathering & Festival</option>
+              <option value="Corporate Gala">Corporate Summit & Gala</option>
+              <option value="Non-Profit Fundraiser">Charity Gala & Fundraiser</option>
+              <option value="Family Reunion">Family Function & Reunion</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="inputEventName">2. Event Title / Names *</label>
+            <input type="text" id="inputEventName" value="Eliza's 30th Neon Horizon Celebration" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputDate">3. Target Date *</label>
+            <input type="date" id="inputDate" value="2027-04-18" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputLocation">4. Location & Venue Style *</label>
+            <input type="text" id="inputLocation" value="The Skyline Penthouse & Rooftop, Austin, TX" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputGuestCount">5. Expected Headcount (Guests) *</label>
+            <div class="range-with-val">
+              <input type="range" id="inputGuestCount" min="20" max="600" step="5" value="85">
+              <span id="guestCountVal" class="metric-chip">85 Guests</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputBudget">6. Total Capital Budget ($ USD) *</label>
+            <input type="number" id="inputBudget" min="1000" max="1000000" step="500" value="14500" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputTheme">7. Aesthetic & Theme Profile</label>
+            <input type="text" id="inputTheme" value="Modern Cyberpunk Lounge with Velvet, Neon & Artisan Mixology">
+          </div>
+
+          <div class="form-group">
+            <label for="inputSetting">8. Setting Type</label>
+            <select id="inputSetting">
+              <option value="Hybrid (Indoor Penthouse + Outdoor Rooftop)">Hybrid (Indoor Lounge + Open-Air Terrace)</option>
+              <option value="Full Indoor Ballroom / Venue">Full Indoor Ballroom / Venue</option>
+              <option value="Open-Air Garden / Park">Open-Air Garden / Public Park</option>
+              <option value="Private Estate / Estate Grounds">Private Estate / Villa</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="inputDietary">9. Culinary & Beverage Style</label>
+            <input type="text" id="inputDietary" value="Gourmet cocktail stations, Asian fusion small plates, bespoke zero-proof craft bar, vegan/GF tagged">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="inputSpecial">10. Special Requests & Hero Vision</label>
+            <textarea id="inputSpecial" rows="2">Live DJ with electric violinist duo, custom neon photo arch, midnight truffle fry station, surprise dessert reveal.</textarea>
+          </div>
+        </div>
+
+        <!-- AI Generation Progress Overlay (shown during generation) -->
+        <div class="gen-progress-overlay" id="genProgressOverlay" style="display: none;">
+          <div class="gen-spinner-ring"></div>
+          <h4 id="genStepTitle">EventPilot Neural Engine Synthesizing...</h4>
+          <p id="genStepDetail" class="code-font">Balancing 7 budget vectors against market rate...</p>
+          <div class="gen-bar">
+            <div class="gen-bar-fill" id="genBarFill" style="width: 25%;"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelWizard">Cancel</button>
+          <button type="submit" class="btn btn-gradient" id="btnSynthesize">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Synthesize Event Plan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Custom Vendor -->
+  <div class="modal-backdrop" id="vendorModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Add Vendor to Ledger</h3>
+        <button class="btn-close" id="btnCloseVendorModal">&times;</button>
+      </div>
+      <form id="vendorForm">
+        <div class="form-group">
+          <label for="vCategory">Category *</label>
+          <select id="vCategory" required>
+            <option value="Venue">Venue & Rentals</option>
+            <option value="Catering">Food & Beverage / Bar</option>
+            <option value="Decor">Decor & Floral Design</option>
+            <option value="Photography">Photography & Film</option>
+            <option value="Entertainment">Entertainment & Sound</option>
+            <option value="Production">Production & Lighting</option>
+            <option value="Transportation">Transport & Logistics</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vName">Vendor / Company Name *</label>
+          <input type="text" id="vName" placeholder="e.g., Luminary Sound & FX" required>
+        </div>
+        <div class="form-group">
+          <label for="vContact">Contact Person / Email</label>
+          <input type="text" id="vContact" placeholder="e.g., booking@luminaryfx.com">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="vCost">Estimated Amount ($)</label>
+            <input type="number" id="vCost" min="0" step="50" value="1200">
+          </div>
+          <div class="form-group">
+            <label for="vStatus">Status</label>
+            <select id="vStatus">
+              <option value="Sourced">Sourced</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Quoted">Quoted</option>
+              <option value="Contract Signed">Contract Signed</option>
+              <option value="Deposit Paid">Deposit Paid</option>
+              <option value="Complete">Complete</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="vDueDate">Contract / Deliverable Due Date</label>
+          <input type="date" id="vDueDate">
+        </div>
+        <div class="form-group">
+          <label for="vNotes">Deliverables & Contract SLA Notes</label>
+          <textarea id="vNotes" rows="2" placeholder="Power requirements, setup window, cancellation clauses..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelVendorModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Vendor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="eventData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
